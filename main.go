@@ -13,8 +13,15 @@ func main() {
 	// appKafka.StartKafka()
 	// fmt.Println("Kafka started!")
 	// time.Sleep(10 * time.Minute)
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter text: ")
-	text, _ := reader.ReadString('\n')
-	appKafka.WriteKafka(text)
+	// reader := bufio.NewReader(os.Stdin)
+	// fmt.Print("Enter text: ")
+	// text, _ := reader.ReadString('\n')
+	//appKafka.WriteKafka(text)
+
+	for i := 0; i < 10; i++ {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Enter text: ")
+		text, _ := reader.ReadString('\n')
+		appKafka.WriteKafka(text)
+	}
 }
