@@ -26,3 +26,26 @@ func StartKafka() {
 		fmt.Println("Message: ", string(message.Value))
 	}
 }
+
+func WriteKafka(input string) {
+	// make a writer that produces to topic-A, using the least-bytes distribution
+	w := &kafka.Writer{
+		Addr:     kafka.TCP("localhost:9092"),
+		Topic:    "quickstart",
+		Balancer: &kafka.LeastBytes{},
+	}
+
+	err := w.WriteMessages(context.Background(),
+		kafka.Message{
+			Key:   []byte("Key-A"),
+			Value: []byte(input),
+		},
+	)
+	if err != nil {
+		fmt.Println("failed to write messages:", err)
+	}
+
+	if err := w.Close(); err != nil {
+		fmt.Println("failed to close writer:", err)
+	}
+}
